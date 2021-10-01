@@ -5,6 +5,12 @@
     <title>Java School</title>
   </head>
 <body>
-  <%--  todo: 6. Add two references that lead to the 'home' page and the 'user' page --%>
+<c:url value="/home" var="home"/>
+<c:url value="/users" var="user"/>
+
+<button class="button" style="width: 75px; height: 50px"><a href="${home}">Домой</a></button>
+<br/>
+<br/>
+<button class="button" style="width: 75px; height: 50px"><a href="${user}" class="button">Users</a></button>
 </body>
 </html>

@@ -1,13 +1,11 @@
 package com.example.domain.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@EqualsAndHashCode
 @Table(name = "users")
 public class User {
 

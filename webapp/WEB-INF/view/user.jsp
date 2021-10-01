@@ -5,6 +5,8 @@
     <title>User</title>
 </head>
 <body>
-<%-- todo: 7. Using jsp tools, displau user info (id, login, email) --%>
+<p>User id: <c:out value="${user.id}"/> </p>
+<p>User login: <c:out value="${user.login}"/> </p>
+<p>User email: <c:out value="${user.email}"/> </p>
 </body>
 </html>
