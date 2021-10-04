@@ -5,6 +5,6 @@
     <title>User</title>
 </head>
 <body>
-<%-- todo: 7. Using jsp tools, displau user info (id, login, email) --%>
+<%-- todo: 7. Using jsp tools, display user info (id, login, email) --%>
 </body>
 </html>

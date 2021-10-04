@@ -9,7 +9,7 @@ public class WebConfiguration extends AbstractAnnotationConfigDispatcherServletI
     @Override
     public void onStartup(ServletContext servletContext) {
         //todo: 2. Configure the onStartup method.
-        // init context and specify config location
+        // init root context and specify config location
         // init app context and register your MvcConfiguration
         // init dispatcherServlet
     }
