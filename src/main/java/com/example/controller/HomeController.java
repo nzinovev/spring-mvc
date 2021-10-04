@@ -4,8 +4,7 @@ import com.example.domain.dto.UserDto;
 import com.example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,6 +25,17 @@ public class HomeController {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("user");
         modelAndView.addObject("user", newUserDto);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}")
+    public ModelAndView usersWithPathVariable(@PathVariable String id) {
+        var userDto = UserDto.builder().id(id).login("lol kek cheburek").email("kokoko@mail.ru").build();
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("user");
+        modelAndView.addObject("user", userDto);
+
         return modelAndView;
     }
 }
