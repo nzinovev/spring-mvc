@@ -5,12 +5,14 @@ import com.example.domain.entity.User;
 import com.example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @Controller
@@ -49,7 +51,10 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String createUser(@ModelAttribute(name = "user") UserDto userDto) {
+    public String createUser(@Valid @ModelAttribute(name = "user") UserDto userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "sign-up";
+        }
         var user = new User(userDto);
         userService.createUser(user);
 
