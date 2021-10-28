@@ -5,8 +5,12 @@ import org.springframework.stereotype.Repository;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class UserRepository {
@@ -23,6 +27,21 @@ public class UserRepository {
 
     public void clean() {
         users.clear();
+    }
+
+    public List<User> findUsers(String login, String email, int age) {
+
+        CompletableFuture<List<User>> usersWithSameLogin =
+                CompletableFuture.supplyAsync(() -> users.stream().filter(user -> user.getLogin().equals(login)).collect(Collectors.toList()));
+        CompletableFuture<List<User>> usersWithSameEmail =
+                CompletableFuture.supplyAsync(() -> users.stream().filter(user -> user.getEmail().equals(email)).collect(Collectors.toList()));
+        CompletableFuture<List<User>> userWithSameAge =
+                CompletableFuture.supplyAsync(() -> users.stream().filter(user -> user.getAge() == age).collect(Collectors.toList()));
+
+        return Stream.of(usersWithSameLogin, usersWithSameEmail, userWithSameAge)
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     private List<User> fillUsers() {

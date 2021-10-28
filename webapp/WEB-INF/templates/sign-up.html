@@ -10,15 +10,15 @@
 <div class="form-group">
     <form action="#" th:action="@{/users}" th:object="${user}" method="post" >
         <div class="form-group col-md-6">
-            <label for="Email" class="col-form-label">Login</label>
+            <label for="login" class="col-form-label">Login</label>
             <input type="text" th:field="*{login}" class="form-control" id="login" placeholder="Login">
         </div>
         <div class="form-group col-md-6">
-            <label for="Email" class="col-form-label">Email</label>
+            <label for="email" class="col-form-label">Email</label>
             <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email">
         </div>
         <div class="form-group col-md-6">
-            <label for="Email" class="col-form-label">Age</label>
+            <label for="age" class="col-form-label">Age</label>
             <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Age">
         </div>
         <div class="form-group col-md-6">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.stream.Collectors;
@@ -30,6 +31,31 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping("/search")
+    public String findUsers(@ModelAttribute(name = "user") UserDto dto) {
+        return "search";
+    }
+
+    @GetMapping("/users/search")
+    public ModelAndView findUsers(@RequestParam(value = "login") String login,
+                                  @RequestParam(value = "email") String email,
+                                  @RequestParam(value = "age") int age) {
+        var users = userService.findUsers(login, email, age);
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("users");
+        modelAndView.addObject("users", users);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/users")
+    public String createUser(@ModelAttribute(name = "user") UserDto userDto) {
+        var user = new User(userDto);
+        userService.createUser(user);
+
+        return "redirect:users";
+    }
+
     @GetMapping("/sign-up")
     public String signUp(@ModelAttribute(name = "user") UserDto userDto) {
         return "sign-up";
@@ -38,14 +64,6 @@ public class UserController {
     @GetMapping("/clean")
     public String clean() {
         userService.clean();
-        return "redirect:users";
-    }
-
-    @PostMapping("/users")
-    public String createUser(@ModelAttribute(name = "user") UserDto userDto) {
-        var user = new User(userDto);
-        userService.createUser(user);
-
         return "redirect:users";
     }
 }

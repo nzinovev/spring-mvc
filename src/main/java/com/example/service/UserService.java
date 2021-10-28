@@ -24,4 +24,8 @@ public class UserService {
     public void clean() {
         userRepository.clean();
     }
+
+    public List<User> findUsers(String login, String email, int age) {
+        return userRepository.findUsers(login, email, age);
+    }
 }
