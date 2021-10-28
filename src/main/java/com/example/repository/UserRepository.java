@@ -41,6 +41,7 @@ public class UserRepository {
         return Stream.of(usersWithSameLogin, usersWithSameEmail, userWithSameAge)
                 .map(CompletableFuture::join)
                 .flatMap(Collection::stream)
+                .distinct()
                 .collect(Collectors.toList());
     }
 
