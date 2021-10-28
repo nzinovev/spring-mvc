@@ -1,23 +1,24 @@
 package com.example.domain.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
-
-@Data
-@Entity
-@Table(name = "users")
+@Getter
+@Setter
+//@Entity
+//@Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "fancy-id")
-    private String uuid;
-
-    @Column(name = "login")
+//    @Column(name = "login")
     private String login;
-    @Column(name = "email")
+//    @Column(name = "email")
     private String email;
+//    @Column(name = "password")
+    private String password;
+//    @Column(name = "age")
+    private int age;
 }
