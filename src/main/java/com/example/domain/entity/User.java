@@ -1,5 +1,6 @@
 package com.example.domain.entity;
 
+import com.example.domain.dto.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,4 +22,13 @@ public class User {
     private String password;
 //    @Column(name = "age")
     private int age;
+
+    public User() {}
+
+    public User(UserDto dto) {
+        this.login = dto.getLogin();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.age = dto.getAge();
+    }
 }

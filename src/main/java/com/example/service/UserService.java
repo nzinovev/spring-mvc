@@ -1,12 +1,11 @@
 package com.example.service;
 
-import com.example.domain.dto.UserDto;
+import com.example.domain.entity.User;
 import com.example.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -14,9 +13,15 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<UserDto> findUsers() {
-        return userRepository.findUsers().stream()
-                .map(UserDto::new)
-                .collect(Collectors.toList());
+    public List<User> findUsers() {
+        return userRepository.findUsers();
+    }
+
+    public void createUser(User user) {
+        userRepository.createUser(user);
+    }
+
+    public void clean() {
+        userRepository.clean();
     }
 }

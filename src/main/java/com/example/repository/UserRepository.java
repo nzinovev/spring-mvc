@@ -17,6 +17,14 @@ public class UserRepository {
         return users;
     }
 
+    public void createUser(User user) {
+        users.add(user);
+    }
+
+    public void clean() {
+        users.clear();
+    }
+
     private List<User> fillUsers() {
         users = new ArrayList<>();
         var random = new Random();

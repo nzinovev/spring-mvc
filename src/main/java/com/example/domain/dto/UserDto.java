@@ -2,8 +2,10 @@ package com.example.domain.dto;
 
 import com.example.domain.entity.User;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class UserDto {
 
     private String login;
@@ -11,6 +13,8 @@ public class UserDto {
     private int age;
     private String password;
     private String confirmPassword;
+
+    public UserDto() {}
 
     public UserDto(User user) {
         this.login = user.getLogin();

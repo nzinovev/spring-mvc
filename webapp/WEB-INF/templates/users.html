@@ -28,5 +28,17 @@
         </tbody>
     </table>
 </div>
+<div class="text" th:if="${users.size() == 0}">
+    <p class="alert">There are no users in the database. If you want to create a new user,
+    please click the button 'create another user' below</p>
+</div>
+<div class="row">
+    <div class="mt-5 ml-4">
+        <a href="/sign-up" class="btn btn-primary">Create another user</a>
+    </div>
+    <div class="mt-5 ml-4">
+        <a href="/clean" class="btn btn-primary">Delete all users</a>
+    </div>
+</div>
 </body>
 </html>

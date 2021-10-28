@@ -1,10 +1,16 @@
 package com.example.controller;
 
+import com.example.domain.dto.UserDto;
+import com.example.domain.entity.User;
 import com.example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,11 +20,32 @@ public class UserController {
 
     @GetMapping({"/", "/users"})
     public ModelAndView findUsers() {
-        var users = userService.findUsers();
+        var users = userService.findUsers().stream()
+                .map(UserDto::new)
+                .collect(Collectors.toList());
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("users");
         modelAndView.addObject("users", users);
 
         return modelAndView;
+    }
+
+    @GetMapping("/sign-up")
+    public String signUp(@ModelAttribute(name = "user") UserDto userDto) {
+        return "sign-up";
+    }
+
+    @GetMapping("/clean")
+    public String clean() {
+        userService.clean();
+        return "redirect:users";
+    }
+
+    @PostMapping("/users")
+    public String createUser(@ModelAttribute(name = "user") UserDto userDto) {
+        var user = new User(userDto);
+        userService.createUser(user);
+
+        return "redirect:users";
     }
 }
