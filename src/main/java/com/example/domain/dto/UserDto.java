@@ -4,22 +4,20 @@ import com.example.domain.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
 public class UserDto {
 
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank(message = "Пожалуйста, введите логин")
+    @Size(min = 3, max = 20, message = "Логин должен содержать от {min} до {max} символов.")
     private String login;
     @Email
     @Size(max = 50)
     private String email;
-//    @NotBlank
-//    @Size(max = 90)
+    @Max(value = 99)
+    @Positive(message = "Должно быть больше нуля")
     private int age;
     @NotBlank
     @Size(min = 3, max = 20)
@@ -28,7 +26,8 @@ public class UserDto {
     @Size(min = 3, max = 20)
     private String confirmPassword;
 
-    public UserDto() {}
+    public UserDto() {
+    }
 
     public UserDto(User user) {
         this.login = user.getLogin();
