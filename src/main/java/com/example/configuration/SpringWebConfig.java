@@ -1,11 +1,11 @@
 package com.example.configuration;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -26,6 +26,13 @@ public class SpringWebConfig implements WebMvcConfigurer {
         return templateResolver;
     }
 
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+        localValidatorFactoryBean.setProviderClass(HibernateValidator.class);
+        return localValidatorFactoryBean;
+    }
+
     @Bean
     public SpringTemplateEngine templateEngine() {
         var templateEngine = new SpringTemplateEngine();
@@ -37,6 +44,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
     @Bean
     public ThymeleafViewResolver thymeleafViewResolver() {
         var viewResolver = new ThymeleafViewResolver();
+        viewResolver.setCharacterEncoding("UTF-8");
         viewResolver.setTemplateEngine(templateEngine());
 
         return viewResolver;

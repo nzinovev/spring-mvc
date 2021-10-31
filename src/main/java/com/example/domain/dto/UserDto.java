@@ -18,8 +18,8 @@ public class UserDto {
     @Email
     @Size(max = 50)
     private String email;
-    @NotBlank
-    @Size(max = 90)
+//    @NotBlank
+//    @Size(max = 90)
     private int age;
     @NotBlank
     @Size(min = 3, max = 20)
