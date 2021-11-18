@@ -4,23 +4,25 @@ import com.example.domain.dto.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Getter
 @Setter
-//@Entity
-//@Table(name = "users")
+@Entity
+@Table(name = "users")
 public class User {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @Column(name = "login")
+    @Column
     private String login;
-//    @Column(name = "email")
+    @Column
     private String email;
-//    @Column(name = "password")
+    @Column
     private String password;
-//    @Column(name = "age")
+    @Column
     private int age;
 
     public User() {}
@@ -30,5 +32,20 @@ public class User {
         this.email = dto.getEmail();
         this.password = dto.getPassword();
         this.age = dto.getAge();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
