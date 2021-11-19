@@ -1,7 +1,7 @@
 package com.example.configuration;
 
-import com.example.service.MyListener;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -9,7 +9,6 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +34,11 @@ public class RabbitConfiguration implements RabbitListenerConfigurer {
     }
 
     @Bean
+    public Queue myQueue() {
+        return new Queue("myQueue");
+    }
+
+    @Bean
     public ConnectionFactory connectionFactory() {
         var connectionFactory = new CachingConnectionFactory();
         connectionFactory.setHost("localhost");
@@ -43,11 +47,6 @@ public class RabbitConfiguration implements RabbitListenerConfigurer {
         connectionFactory.setPassword("guest");
 
         return connectionFactory;
-    }
-
-    @Bean
-    public MessageListenerAdapter messageListenerAdapter(MyListener listener) {
-        return new MessageListenerAdapter(listener, messageConverter());
     }
 
     @Bean
